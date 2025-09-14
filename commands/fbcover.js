@@ -32,8 +32,6 @@ module.exports = {
       const pathLine = path.join(__dirname, "cache", "fbcover3.png");
       const cacheDir = path.join(__dirname, "cache");
       if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
-
-      // Fetch avatar image
       const avtAnime = (
         await axios.get(
           encodeURI(
@@ -43,8 +41,6 @@ module.exports = {
         )
       ).data;
       fs.writeFileSync(pathAva, Buffer.from(avtAnime));
-
-      // Fetch background and effect images
       const background = (
         await axios.get(
           encodeURI(
@@ -63,8 +59,6 @@ module.exports = {
       ).data;
       fs.writeFileSync(imagePath, Buffer.from(background));
       fs.writeFileSync(pathLine, Buffer.from(hieuung));
-
-      // Download font if not exists
       const fontPath = path.join(__dirname, "cache", "UTMAvoBold.ttf");
       if (!fs.existsSync(fontPath)) {
         const getfont2 = (
@@ -75,8 +69,6 @@ module.exports = {
         ).data;
         fs.writeFileSync(fontPath, Buffer.from(getfont2));
       }
-
-      // Draw banner
       const baseImage = await loadImage(imagePath);
       const baseAva = await loadImage(pathAva);
       const baseLine = await loadImage(pathLine);
@@ -116,8 +108,6 @@ module.exports = {
       ctx.fillStyle = color.toLowerCase() === "no" ? "#ffffff" : color;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.globalCompositeOperation = "source-over";
-
-      // 👉 Draw avatar with circle mask
       const drawCircleImage = (ctx, img, x, y, size) => {
         ctx.save();
         ctx.beginPath();
